@@ -1,0 +1,23 @@
+        
+        Installation
+
+        Enable-ComputerRestore -Drive "C:\"
+        Checkpoint-Computer -Description "SystemDrive Restore" -RestorePointType MODIFY_SETTINGS -ErrorAction SilentlyContinue
+        Get-ComputerRestorePoint | Format-List
+
+        # Define variables
+        $TaskName = "SystemDrive Restore"  # The name of the scheduled task
+        $ScriptPath = "C:\ProgramData\System Restore\System_Restore.ps1"  # Path to your PowerShell script
+        $StartTime = "7:00AM"  # Start time for the task
+        $DayOfWeek = "Monday"  # Day of the week for the task to run
+
+        # Create the scheduled task action to run PowerShell script
+        $Action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
+
+        # Create the scheduled task trigger to run weekly on the specified day and time
+        $Trigger = New-ScheduledTaskTrigger -At $StartTime -Weekly -DaysOfWeek $DayOfWeek
+
+        # Register the scheduled task
+        Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -User "SYSTEM" -RunLevel Highest
+
+        Write-Host "Scheduled task '$TaskName' has been created to run weekly on $DayOfWeek at $StartTime."
