@@ -1,0 +1,3 @@
+Uninstall String for Viso
+
+Execute-Process -Path "C:\Program Files\Common Files\Microsoft Shared\ClickToRun\OfficeClickToRun.exe" -Parameters "scenario=install scenariosubtype=ARP sourcetype=None productstoremove=`"VisioProRetail.16_en-us_x-none`" culture=en-us version.16=16.0 DisplayLevel=False"
