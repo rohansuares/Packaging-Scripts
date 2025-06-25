@@ -1,1 +1,16 @@
+Make sure you have the Office Setup file in the Directory Folder
 
+Create a XML File with below
+
+<Configuration>
+<Display Level="None" AcceptEULA="True" />
+<Property Name="FORCEAPPSHUTDOWN" Value="True" />
+<Remove>
+<Product ID="O365HomePremRetail">
+</Product>
+</Remove>
+</Configuration>
+
+Call the XML using PowerShell
+
+Start-Process -Wait -FilePath "$dirFiles\setup.exe" -ArgumentList "/configure `"$dirFiles\Uninstall.xml`""
